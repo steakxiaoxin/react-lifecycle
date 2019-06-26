@@ -1,0 +1,55 @@
+{
+  "name": "react-lifecycle",
+  "version": "1.0.0",
+  "description": "react-lifecycle",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --open --config webpack/webpack.dev.js",
+    "build": "webpack --config webpack/webpack.prod.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "remove": "rimraf dist"
+  },
+  "repository": "git+https://github.com/steakxiaoxin/react-lifecycle.git",
+  "author": "xiaoxin <steak_xiaoxin@qq.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/steakxiaoxin/react-lifecycle/issues"
+  },
+  "homepage": "https://github.com/steakxiaoxin/react-lifecycle",
+  "dependencies": {
+    "@reach/router": "^1.2.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "styled-components": "^4.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^2.0.2",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.13.0",
+    "gh-pages": "^2.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "husky": "^2.3.0",
+    "prettier": "^1.17.1",
+    "pretty-quick": "^1.11.0",
+    "rimraf": "^2.6.3",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.3.1",
+    "webpack-merge": "^4.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged && eslint . --ext .js,.jsx"
+    }
+  }
+}
