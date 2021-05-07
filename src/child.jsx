@@ -1,74 +1,73 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-class Index extends React.Component {
-  constructor() {
-    console.log('  子 constructor')
-    super()
-    this.state = {
-      num: 1
-    }
-  }
+import { Add, Add2, Sub } from './store/actionCreators'
 
-  static getDerivedStateFromProps(props, state) {
-    console.log('  子 getDerivedStateFromProps')
-    return state
-  }
-
-  componentDidMount() {
-    console.log('  子 componentDidMount')
-    console.log('   --------------------------------')
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log('  子 shouldComponentUpdate')
-    return true
-  }
-
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    console.log('  子 getSnapshotBeforeUpdate')
-    return prevState.num
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('  子 componentDidUpdate', 'snapshot: ', snapshot)
-    console.log('   --------------------------------')
+class Counter extends React.Component {
+  constructor(props) {
+    super(props)
   }
 
   render() {
-    const { state, props } = this
-    console.log('  子 render')
     return (
-      <div className="">
-        <button
-          onClick={() => {
-            this.setState({ num: state.num + 1 })
+      <div>
+        <div
+          style={{
+            textAlign: 'center'
           }}
         >
-          子 +1
-        </button>
-        <button
-          style={{ margin: '20px' }}
-          onClick={() => {
-            this.forceUpdate()
+          <button onClick={this.countSub}>减一</button>
+          <span
+            style={{
+              display: 'inline-block',
+              width: '50px',
+              textAlign: 'center'
+            }}
+          >
+            {this.props.count}
+          </span>
+          <button onClick={this.props.countAdd}>加一</button>
+        </div>
+        <div
+          style={{
+            textAlign: 'center'
           }}
         >
-          强制更新父 forceUpdate
-        </button>
-        <span>
-          子 state：
-          {state.num}
-        </span>
-        <span style={{ margin: '20px' }}>
-          子 props：
-          {props.num}
-        </span>
+          <button onClick={this.props.countSub}>减一</button>
+          <span
+            style={{
+              display: 'inline-block',
+              width: '50px',
+              textAlign: 'center'
+            }}
+          >
+            {this.props.count}
+          </span>
+          <button onClick={this.props.countAdd2}>加一</button>
+        </div>
       </div>
     )
   }
+}
 
-  componentWillUnmount() {
-    console.log('  子 componentWillUnmount')
+const mapStateToProps = state => {
+  return {
+    count: state.counter.count
   }
 }
 
-export default Index
+const mapDispatchToProps = dispatch => {
+  return {
+    countAdd: count => {
+      dispatch(Add())
+    },
+    countAdd2: count => {
+      dispatch(Add2())
+    },
+    countSub: count => {
+      dispatch(Sub())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter)
